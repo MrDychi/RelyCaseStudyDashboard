@@ -174,3 +174,8 @@ if __name__ == "__main__":
     print(getAverageMissionsPerYear(2022, 2022))
     print(getAverageMissionsPerYear(1957, 2022))
 
+    print(f"# Unique Companies: {len(DATA["Company"].unique().tolist())}")
+    print(f"# Unique Locations: {len(DATA["Location"].unique().tolist())}")
+    print(f"# Unique Rockets: {len(DATA["Rocket"].unique().tolist())}")
+    print(f"# Unique Missions: {len(DATA["Mission"].unique().tolist())}")
+

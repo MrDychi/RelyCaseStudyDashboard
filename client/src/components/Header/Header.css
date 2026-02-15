@@ -1,0 +1,29 @@
+.header {
+    width: 100vw;
+    background-color: rgb(149, 51, 51);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 7.5vh;
+}
+
+.logoLink .logo {
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+    padding: 0;
+    margin: 0;
+    align-content: center;
+}
+
+.header a{
+    height: 65%;
+    width: 50%;
+    padding: 0 0 0 1%;
+    margin: 0;
+    justify-content: flex-start;
+    align-content: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
