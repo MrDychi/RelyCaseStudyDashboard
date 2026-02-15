@@ -1,0 +1,20 @@
+CHART
+pie chart 
+- #missions per company
+
+bar chart
+- success rate per company
+- 
+
+line chart
+- missions per year per company
+- average missions per year range per company
+
+
+
+NAVBAR
+- main dashboard
+- raw data
+- filters
+    - year: start year + end year
+    - 
