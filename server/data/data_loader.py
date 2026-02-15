@@ -143,6 +143,16 @@ def getAverageMissionsPerYear(startYear: int, endYear: int) -> float:
     average = total_missions / num_years
     return round(average, 2)
 
+def getYearRangeData():
+    """
+    Get minimum year and maximum year in database
+    """
+    sorted_data = sorted(DATA["Date"])
+    minVal = sorted_data[0][:4]
+    maxVal = sorted_data[-1][:4]
+    print(f"returning: {minVal}, {maxVal}")
+    return (minVal, maxVal)
+
 if __name__ == "__main__":
     # Testing functions here
     print("Testing Function 1: getMissionCountByCompany...")

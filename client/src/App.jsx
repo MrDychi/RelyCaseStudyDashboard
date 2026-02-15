@@ -8,11 +8,27 @@ import TableView from './components/TableView/TableView.jsx'
 import './App.css'
 
 function App() {
-    const [displayPage, setDisplayPage] = useState("dashboard")
+    const [displayPage, setDisplayPage] = useState("dashboard");
+    const [fullYearRange, setFullYearRange] = useState(null);
+    const [yearFilterRange, setYearFilterRange] = useState(null);
 
     const [count, setCount] = useState(0);
     const [totalRows, setTotalRows] = useState(0);
     const [companyData, setCompanyData] = useState({ "num": 0, "values": ["Empty"] });
+
+    useEffect(() => {
+        const fetchYearRange = async () => {
+            const response = await fetch('http://localhost:8000/api/getYearRange');
+            const data = await response.json();
+            setFullYearRange([Number(data.min), Number(data.max)]);
+            setYearFilterRange([Number(data.min), Number(data.max)]);
+        }
+        fetchYearRange();
+    }, []);
+
+    useEffect(() => {
+        console.log(`Set year range to: ${fullYearRange}`);
+    }, [fullYearRange]);
 
     const handleClick1 = async () => {
         const response = await fetch('http://localhost:8000/api/summary');
@@ -26,13 +42,23 @@ function App() {
         setCompanyData(data);
         console.log("Fetching company data...");
     }
-
+    if (!fullYearRange) {
+        return null;
+    }
     return (
         <>
-            <div class="app-container">
+            <div className="app-container">
                 <Header></Header>
-                <div class="main-body">
-                    <Navbar displayPage={displayPage} setDisplayPage={setDisplayPage}></Navbar>
+                <div className="main-body">
+                    {fullYearRange && (
+                        <Navbar 
+                            displayPage={displayPage} 
+                            setDisplayPage={setDisplayPage} 
+                            fullYearRange={fullYearRange} 
+                            yearFilterRange={yearFilterRange} 
+                            setYearFilterRange={setYearFilterRange}
+                        ></Navbar>
+                    )}
                     {displayPage === "dashboard" ? <Dashboard></Dashboard> : <></>}
                     {displayPage === "table" ? <TableView></TableView> : <></>}
                     {/*

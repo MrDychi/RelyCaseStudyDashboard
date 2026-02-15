@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from data.data_loader import (
+    getYearRangeData,
     getUniqueValues,
     getRows
 )
@@ -18,6 +19,11 @@ app.add_middleware(
 @app.get("/api/health")
 def health():
     return {"status": "Backend running"}
+
+@app.get("/api/getYearRange")
+def getYearRange():
+    values = getYearRangeData()
+    return {"min": values[0], "max": values[1]}
 
 @app.get("/api/columnData")
 def getColumnData(request: Request):
