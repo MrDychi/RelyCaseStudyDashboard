@@ -11,11 +11,9 @@
     text-align: center;
     margin: 5vh;
     box-sizing: border-box;
-    overflow: auto;
     overflow-x: auto;
     overflow-y: auto;
     border: 5px solid midnightblue;
-    scrollbar-width: none;
 }
 
 h1 {

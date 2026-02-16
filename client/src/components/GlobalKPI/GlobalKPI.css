@@ -1,0 +1,21 @@
+.global-kpi-card {
+    height: 17%;
+    background-color: #ddd;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    padding: 10px 15px 10px 10px;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
+}
+.global-kpi-card img{
+    height: 80%;
+}
+.global-kpi-card .global-kpi-card-stat-container h1{
+    font-size: 3rem;
+}
+.global-kpi-card .global-kpi-card-stat-container p{
+    font-size: 0.8rem;
+    color: blue;
+}

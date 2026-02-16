@@ -79,7 +79,16 @@ function App() {
                     )}
                     {/*TODO: only render when table data exists */}
                     <div className="display">
-                        {displayPage === "dashboard" ? <Dashboard></Dashboard> : <></>}
+                        {displayPage === "dashboard" ? 
+                            headers === null || rowData === null ?
+                                <div></div> :
+                                <Dashboard
+                                    headers={headers}
+                                    rowData={rowData}
+                                    yearFilterRange={yearFilterRange}
+                                    companyFilter={companyFilter}
+                                ></Dashboard> : 
+                            <></>}
                         {displayPage === "table" ? 
                             headers === null || rowData === null ?
                                 <div>TEMP: Loading</div> : 

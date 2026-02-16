@@ -1,4 +1,11 @@
 CHART
+Global KPI
+- # Locations
+- # Rockets
+- # Missions
+- % successful missions
+- % rockets retired
+
 Top
 - KPI Stat cards
     - # total missions (numeric)
