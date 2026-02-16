@@ -148,6 +148,12 @@ def getAllCompanyNames():
     """
     return DATA["Company"].unique().tolist()
 
+def getAllTableData():
+    """
+    Get all the data
+    """
+    return [DATA.columns.tolist()] + DATA.where(pd.notnull(DATA), "").values.tolist()
+
 if __name__ == "__main__":
     # Testing functions here
     print("Testing Function 1: getMissionCountByCompany...")

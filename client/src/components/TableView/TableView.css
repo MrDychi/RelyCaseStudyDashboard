@@ -1,5 +1,23 @@
+.tableView {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
 .table-container {
-    width: 100%;
+    width: calc(100%-10vh);
+    flex: 1;
     height: 100%;
     text-align: center;
+    margin: 5vh;
+    box-sizing: border-box;
+    overflow: auto;
+    overflow-x: auto;
+    overflow-y: auto;
+    border: 5px solid midnightblue;
+    scrollbar-width: none;
+}
+
+h1 {
+    color: #1a1a57;
 }

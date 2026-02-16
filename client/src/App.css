@@ -15,13 +15,16 @@
 
 .main-body {
   width: 100vw;
+  height: 92.5vh;
   flex: 1;
   display: flex;
   flex-direction: row;
 }
 
-.display-container {
+.display {
+  max-height: 100%;
   flex: 1;
+  min-width: 0;
 }
 
 @keyframes logo-spin {

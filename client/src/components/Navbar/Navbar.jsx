@@ -9,6 +9,14 @@ const Navbar = ({displayPage, setDisplayPage, fullYearRange, yearFilterRange, se
         setCollapsed(!collapsed);
     }
 
+    const selectAllCompanies = () => {
+        setCompanyFilter(fullCompanyList)
+    }
+
+    const deselectAllCompanies = () => {
+        setCompanyFilter([])
+    }
+
     const toggleCompanyFilter = (company) => {
         if (companyFilter.includes(company)) {
             setCompanyFilter(companyFilter.filter((comp) => {return comp !== company}));
@@ -42,7 +50,8 @@ const Navbar = ({displayPage, setDisplayPage, fullYearRange, yearFilterRange, se
                     </div>
                     <div className="nav-filter-container">
                         <div className="year-filter-container">
-                            <div>Year range: (inclusive)</div>
+                            <div>Filter by year range: (inclusive)</div>
+                            <div>{yearFilterRange[0]}-{yearFilterRange[1]}</div>
                             <DoubleSlider 
                                 minValue={fullYearRange[0]} 
                                 maxValue={fullYearRange[1]} 
@@ -50,8 +59,11 @@ const Navbar = ({displayPage, setDisplayPage, fullYearRange, yearFilterRange, se
                                 onChange={setYearFilterRange}
                             >
                             </DoubleSlider>
-                            <p>{yearFilterRange[0]}</p>
-                            <p>{yearFilterRange[1]}</p>
+                        </div>
+                        <div>Filter by company name:</div>
+                        <div className="company-filter-util-btns">
+                            <button className="company-filter-util-btn" onClick={selectAllCompanies}>Select All</button>
+                            <button className="company-filter-util-btn" onClick={deselectAllCompanies}>Reset</button>
                         </div>
                         <div className="company-filter-container">
                             {fullCompanyList.map((company) => {

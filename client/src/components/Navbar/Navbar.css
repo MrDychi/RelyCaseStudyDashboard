@@ -6,6 +6,7 @@
     border-bottom-right-radius: 10px;
     margin: 10px 0;
     transition: all 1s ease;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
 }
 .navbar.collapsed {
     width: 5%;
@@ -13,10 +14,10 @@
 }
 .navbar.expanded {
     width: 25vw;
-    height: auto;
+    height: 100%;
 }
 .navbar.collapsed .navbar-content {
-    transform: translateX(-20vw);
+    transform: translateX(-25vw);
 }
 .navbar.expanded .navbar-content {
     display: flex;
@@ -86,9 +87,25 @@
     align-items: center;
 }
 
+.company-filter-util-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.company-filter-util-btn {
+    padding: 0 20px;
+    height: 30px;
+    box-sizing: border-box;
+}
+.company-filter-util-btn:hover {
+    border: 3px solid lightskyblue;
+    color: lightskyblue;
+}
+
 .company-filter-container {
     width: 100%;
-    max-height: 85%;
+    max-height: 83%;
+    margin: 10px 0 0 0;
     overflow-y: auto;
     scrollbar-width: none;
     display: grid;
@@ -98,6 +115,7 @@
     padding: 0 5px;
     box-sizing: border-box;
     flex: 1;
+    background-color: #ccc;
 }
 .company-filter-contain::-webkit-scrollbar {
     display: none;
@@ -117,8 +135,9 @@
 }
 .company-filter.picked {
     background-color: rgb(115, 115, 255);
+    font-weight: bold;
 }
 .company-filter:hover {
-    font-weight: bold;
+    transform: scale(1.07);
 }
 

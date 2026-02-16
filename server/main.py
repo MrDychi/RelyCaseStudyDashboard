@@ -2,7 +2,8 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from data.data_loader import (
     getYearRangeData,
-    getAllCompanyNames
+    getAllCompanyNames,
+    getAllTableData
 )
 
 app = FastAPI()
@@ -27,3 +28,8 @@ def getYearRange():
 @app.get("/api/getAllCompanies")
 def getAllCompanies():
     return getAllCompanyNames()
+
+@app.get("/api/getAllData")
+def getAllData():
+    values = getAllTableData()
+    return {"headers": values[0], "values": values[1:]}
