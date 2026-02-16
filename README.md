@@ -1,7 +1,6 @@
 # Rely Case Study: Historical Space Mission Data Dashboard
 
 ## Project Summary
-
 This project is an interactive data dashboard for exploring historical spaceship missions.  
 It allows users to analyze mission activity across years, compare companies, examine rocket usage, and evaluate mission success rates through dynamic charts and filters.
 
@@ -9,7 +8,6 @@ The goal of this project is to transform raw mission data into meaningful visual
 
 
 ## Tech Stack
-
 ### Frontend
 - React
 - Vite
@@ -28,15 +26,12 @@ The goal of this project is to transform raw mission data into meaningful visual
 
 
 ## Requirements
-
 You only need:
-
 - **Docker** installed on your computer
 - Node and Python are not needed on your computer.
 
 
 ## How to Run
-
 1. Clone the repository:
 ```bash
 git clone <your-repo-url>
@@ -47,14 +42,32 @@ cd <project-directory>
 ```
 3. Build and start the containers:
 ```bash
-docker compose up--build
+docker compose up --build
+```
+or 
+```bash
+docker-compose up --build
 ```
 4. Open your browser and visit:
 ```bash
 http://localhost:5173
 ```
 5. Play around!
+- View in full screen for best results
 
+## How to safely close
+1. Quit from the terminal
+```bash
+^+c
+```
+2. Close the docker containers
+```bash
+docker compose down
+```
+or
+```bash
+docker-compose down
+```
 
 ## Personal insights
 | Visualization | Reasoning |
