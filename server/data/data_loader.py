@@ -1,5 +1,6 @@
-import csv
 import os
+import re
+from datetime import datetime
 import pandas as pd
 
 # build absolute path safely
@@ -20,6 +21,9 @@ def getMissionCountByCompany(companyName: str) -> int:
     Output:
         - Integer representing the total number of missions
     """
+    # input validation
+    if not isinstance(companyName, str):
+        raise TypeError(f"Expected input type string, but received {type(companyName)}")
     return len(DATA[DATA["Company"] == companyName])
 
 # Required Function 2:
@@ -33,6 +37,10 @@ def getSuccessRate(companyName: str) -> float:
         - Only "Success" missions count assuccessful
         - Return 0.0 if company has no missions
     """
+    # input validation
+    if not isinstance(companyName, str):
+        raise TypeError(f"Expected input type string, but received {type(companyName)}")
+    # data validation
     company_missions = DATA[DATA["Company"] == companyName]
     if len(company_missions) == 0:
         return 0.0
@@ -51,6 +59,17 @@ def getMissionsByDateRange(startDate: str, endDate: str) -> list:
     Output:
     - List of strings containing mission names, sorted chronologically
     """
+    # input validation
+    if not isinstance(startDate, str) or not isinstance(endDate, str):
+        raise TypeError(f"Expected input type string, but received {type(startDate)}")
+    datePattern = r"\d{4}-\d{2}-\d{2}"
+    if not re.fullmatch(datePattern, startDate) or not re.fullmatch(datePattern, endDate):
+        raise ValueError(f"Date must be in the format YYYY-MM-DD, but received {startDate} and {endDate}")
+    try:
+        datetime.strptime(startDate, "%Y-%m-%d")
+        datetime.strptime(endDate, "%Y-%m-%d")
+    except:
+        raise ValueError(f"Date format is correct, but is not a real date. Received {startDate} and {endDate}")
     after_start = DATA[DATA["Date"] >= startDate]
     in_range = after_start[after_start["Date"] <= endDate]
     return in_range.sort_values("Date")["Mission"].tolist()
@@ -66,7 +85,13 @@ def getTopCompaniesByMissionCount(n: int) -> list:
         - Sorted by mission count in descending order
         - If companies have the same count, sort alphabetically by company name
     """
+    # input validation:
+    if not isinstance(n, int):
+        raise TypeError(f"Expected input type int, but received {type(n)}")
     all_companies = DATA["Company"].unique().tolist()
+    # data validation
+    if n > len(all_companies):
+        raise ValueError(f"Input n is too large, there are only {len(all_companies)} companies.")
     counts = []
     for company in all_companies:
         counts.append((company, getMissionCountByCompany(company)))
@@ -82,6 +107,7 @@ def getMissionStatusCount() -> dict:
         - Dictionary with status as key and count as value
         - Keys: "Success", "Failure", "Partial Failure", "Prelaunch Failure"
     """
+    # no input validation needed
     all_statuses = DATA["MissionStatus"].unique().tolist()
     status_counts = {}
     for status in all_statuses:
@@ -97,6 +123,9 @@ def getMissionsByYear(year: int) -> int:
     Output:
         - Integer representing the total number of missionsin that year
     """
+    # input validation
+    if not isinstance(year, int):
+        raise TypeError(f"Expected type int, but received {type(year)}")
     return len(DATA[DATA["Date"].str.startswith(str(year))])
 
 # Required Function 7:
@@ -108,6 +137,7 @@ def getMostUsedRocket() -> str:
         - String containing the rocket name
         - If multiple rockets have the same count, return the first one alphabetically
     """
+    # no input validation needed
     all_rockets = DATA["Rocket"].unique().tolist()
     rocket_counts = []
     for rocket in all_rockets:
@@ -125,6 +155,10 @@ def getAverageMissionsPerYear(startYear: int, endYear: int) -> float:
     Output:
         - Float representing average missions per year, rounded to 2 decimal places
     """
+    if not isinstance(startYear, int) or not isinstance(endYear, int):
+        raise TypeError(f"Expected two inputs of type int, but received {type(startYear)} and {type(endYear)}")
+    if startYear > endYear:
+        raise ValueError(f"Start year must be before the end year. Reveived {startYear} and {endYear}")
     total_missions = 0
     for year in range(startYear, endYear + 1):
         total_missions += getMissionsByYear(year)
