@@ -85,8 +85,12 @@ a.toggle-company-kpi:hover {
     color: blue;
     text-align: center;
 }
+.bar.graph-card-label {
+    height: 14%;
+}
 .graph-card-graph {
     height: 93%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -105,7 +109,7 @@ a.toggle-company-kpi:hover {
 }
 .bar.chart-container {
     width: 100%;
-    height: 50%;
+    height: 60%;
     background-color: rgba(255, 255, 0, 0);
 }
 .line.chart-container {

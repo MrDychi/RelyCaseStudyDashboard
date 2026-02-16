@@ -109,6 +109,27 @@ const Dashboard = ({headers, rowData, yearFilterRange, companyFilter}) => {
             .slice(0,5);
     }
 
+    const calculateRocketUsage = () => {
+        const rocketCounts = {};
+        let filteredData = 
+            rowData.filter((row) => {
+                let rowYear = Number(row[2].slice(0,4));
+                return rowYear >= yearFilterRange[0] && rowYear <= yearFilterRange[1];
+            })
+            .filter((row) => {
+                let rowCompany = row[0];
+                return companyFilter.includes(rowCompany);
+            }) 
+        filteredData.forEach((row) => {
+            rocketCounts[row[4]] = (rocketCounts[row[4]] || 0) + 1;
+        })
+        const freqCounts = {};
+        Object.values(rocketCounts).forEach(count => {
+            freqCounts[count] = (freqCounts[count] || 0) + 1;
+        })
+        return Object.entries(freqCounts);
+    }
+
     return (
         <>
             <div className="dashboard-view">
@@ -143,8 +164,8 @@ const Dashboard = ({headers, rowData, yearFilterRange, companyFilter}) => {
                     <div className="generic-chart-container">
                         <div className="doughnut chart-container">
                             <div className="doughnut graph-card">
-                                <div className="graph-card-label">Most Active Rockets</div>
-                                <div className="graph-card-graph">
+                                <div className="doughnut graph-card-label">Most Active Rockets</div>
+                                <div className="doughnut graph-card-graph">
                                     <Doughnut
                                         data={{
                                             labels: calculateTopFiveRockets().map(entry => entry[0]),
@@ -170,7 +191,20 @@ const Dashboard = ({headers, rowData, yearFilterRange, companyFilter}) => {
                         <div className="time-charts-container">
                             <div className="bar chart-container">
                                 <div className="bar graph-card">
-                                    {/*<Bar></Bar>*/}
+                                    <div className="bar graph-card-label">Rocket Reusability</div>
+                                    <div className="bar graph-card-graph">
+                                        <Bar
+                                            data={{
+                                                labels: calculateRocketUsage().map(entry => "Used " + entry[0] + " time(s)"),
+                                                datasets: [
+                                                    {
+                                                        label: "# of Rockets",
+                                                        data: calculateRocketUsage().map(entry => entry[1])
+                                                    }
+                                                ]
+                                            }}
+                                        ></Bar>
+                                    </div>
                                 </div>
                             </div>
                             <div className="line chart-container">
