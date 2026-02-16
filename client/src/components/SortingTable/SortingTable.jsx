@@ -9,7 +9,6 @@ const SortingTable = ({headers, rowData, yearFilterRange, companyFilter}) => {
             "key": header, 
             "direction": sortKey.key === header ? sortKey.direction === "asc" ? "desc" : "asc" : "asc"
         });
-        console.log(`new sort: ${header}, ${sortKey.key === header ? sortKey.direction === "asc" ? "desc" : "asc" : "asc"}`);
     };
 
     const getSortedArray = (arr) => {
@@ -18,9 +17,6 @@ const SortingTable = ({headers, rowData, yearFilterRange, companyFilter}) => {
         if (sortKey.key === null) {
             return arr;
         }
-        console.log(`making new sorted array based on ${sortKey.key}`);
-        console.log(headers[index]);
-        console.log(arr.length);
         if (sortKey.direction === "asc") {
             return arr.sort((a, b) => {return a[index] > b[index] ? 1 : -1});
         } 

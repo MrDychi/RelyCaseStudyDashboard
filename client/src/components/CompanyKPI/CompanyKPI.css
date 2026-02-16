@@ -1,0 +1,22 @@
+.company-kpi-card {
+    background-color: #ddd;
+    border-radius: 20px;
+    box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.5);
+    color: blue;
+}
+
+.company-kpi-basic-stat-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 5px;
+    padding: 0 10px;
+}
+
+.company-basic-stat-value {
+    font-weight: bold;
+}
+.company-basic-stat-label {
+    font-size: 0.6rem;
+    color: black;
+}

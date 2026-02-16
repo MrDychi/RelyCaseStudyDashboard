@@ -1,10 +1,12 @@
 .header {
     width: 100vw;
-    background-color: rgb(120, 120, 120);
+    /*background-color: rgb(120, 120, 120);*/
+    background: linear-gradient(to top left, #787878, #ababab);
     display: flex;
     flex-direction: row;
     align-items: center;
     height: 7.5vh;
+    box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.2);
 }
 
 .logoLink .logo {

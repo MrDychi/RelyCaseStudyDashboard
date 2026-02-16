@@ -8,6 +8,7 @@
     box-sizing: border-box;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 5px 5px 5px rgb(0, 0, 0, 0.2);
 }
 .global-kpi-card img{
     height: 80%;

@@ -3,6 +3,9 @@
     display: flex;
     flex-direction: column;
 }
+.tableView p {
+    color: blue;
+}
 
 .table-container {
     width: calc(100%-10vh);
