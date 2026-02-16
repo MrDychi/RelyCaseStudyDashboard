@@ -7,6 +7,8 @@ import successIcon from '../../assets/success.png';
 import rocketIcon from '../../assets/rocket.png';
 import retiredIcon from '../../assets/box.png';
 import { useState } from 'react';
+import { Chart as ChartJS } from "chart.js/auto";
+import { Doughnut, Bar, Line } from "react-chartjs-2";
 
 const Dashboard = ({headers, rowData, yearFilterRange, companyFilter}) => {
     const [showCompanyKPI, setShowCompanyKPI] = useState(true);
@@ -64,7 +66,6 @@ const Dashboard = ({headers, rowData, yearFilterRange, companyFilter}) => {
             }) 
         let len = yearFilterRange[1]-yearFilterRange[0]+1;
         let x_values = Array.from({ length: len}, (_, index) => yearFilterRange[0] + index);
-        console.log(x_values)
         return companyFilter.map((company) => {
             let companyData = filteredData.filter((row) => {
                 return row[0] === company;
@@ -87,6 +88,25 @@ const Dashboard = ({headers, rowData, yearFilterRange, companyFilter}) => {
                 }
             }
         })
+    }
+
+    const calculateTopFiveRockets = () => {
+        const counts = {};
+        let filteredData = 
+            rowData.filter((row) => {
+                let rowYear = Number(row[2].slice(0,4));
+                return rowYear >= yearFilterRange[0] && rowYear <= yearFilterRange[1];
+            })
+            .filter((row) => {
+                let rowCompany = row[0];
+                return companyFilter.includes(rowCompany);
+            }) 
+        filteredData.forEach((row) => {
+            counts[row[4]] = (counts[row[4]] || 0) + 1;
+        });
+        return Object.entries(counts)
+            .sort((a,b) => b[1] - a[1])
+            .slice(0,5);
     }
 
     return (
@@ -120,7 +140,46 @@ const Dashboard = ({headers, rowData, yearFilterRange, companyFilter}) => {
                             )
                         })}
                     </div>
-                    <div className="generic-chart-container"></div>
+                    <div className="generic-chart-container">
+                        <div className="doughnut chart-container">
+                            <div className="doughnut graph-card">
+                                <div className="graph-card-label">Most Active Rockets</div>
+                                <div className="graph-card-graph">
+                                    <Doughnut
+                                        data={{
+                                            labels: calculateTopFiveRockets().map(entry => entry[0]),
+                                            datasets: [
+                                                {
+                                                    label: 'Total missions',
+                                                    data: calculateTopFiveRockets().map(entry => entry[1]),
+                                                    backgroundColor: [
+                                                        "#ffe600",
+                                                        "#9b9b9b",
+                                                        "#a87c49",
+                                                        "#65346c",
+                                                        "#587256",
+                                                    ],
+                                                    borderRadius: 5
+                                                }
+                                            ]
+                                        }}
+                                    ></Doughnut>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="time-charts-container">
+                            <div className="bar chart-container">
+                                <div className="bar graph-card">
+                                    {/*<Bar></Bar>*/}
+                                </div>
+                            </div>
+                            <div className="line chart-container">
+                                <div className="line graph-card">
+                                    {/*<Line></Line>*/}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             

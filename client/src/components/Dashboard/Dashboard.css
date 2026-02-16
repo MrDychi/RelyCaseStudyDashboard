@@ -12,6 +12,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow-y: auto;
+    min-height: 0;
 }
 .global-kpi-container {
     width: 100%;
@@ -33,7 +35,7 @@ a.toggle-company-kpi:hover {
 }
 .company-kpi-container {
     width: 100%;
-    height: 620px;
+    min-height: 620px;
     background: linear-gradient(to top left, rgb(0, 0, 117),rgb(80, 80, 220));
     display: grid;
     grid-template-rows: repeat(2, 1fr);
@@ -47,9 +49,66 @@ a.toggle-company-kpi:hover {
 .company-kpi-container.collapsed {
     transform: translateY(-50%) scaleY(0%);
     transition: all 0.5s ease;
+    display: none;
 }
 .generic-chart-container {
+    width: 100%;
+    height: 50vh;
+    display: flex;
+    flex-direction: row;
+    background-color: rgba(255, 0, 0, 0);
+}
+
+.chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.graph-card {
+    width: 90%;
+    height: 90%;
+    background-color: #ddd;
+    box-sizing: border-box;
+    margin: 20px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 10px 10px 10px rgb(0, 0, 0, 0.5);
+}
+.bar.graph-card, .line.graph-card {
+    height: 80%;
+}
+.graph-card-label {
+    height: 7%;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: blue;
+    text-align: center;
+}
+.graph-card-graph {
+    height: 93%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.doughnut.chart-container {
+    width: 50vh;
+    height: 50vh;
+    background-color: rgba(255, 166, 0, 0);
+    box-sizing: border-box;
+}
+.time-charts-container {
     flex: 1;
     display: flex;
     flex-direction: column;
+}
+.bar.chart-container {
+    width: 100%;
+    height: 50%;
+    background-color: rgba(255, 255, 0, 0);
+}
+.line.chart-container {
+    flex: 1;
+    background-color: rgba(0, 128, 0, 0);
 }

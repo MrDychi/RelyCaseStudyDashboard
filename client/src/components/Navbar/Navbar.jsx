@@ -67,7 +67,7 @@ const Navbar = ({displayPage, setDisplayPage, fullYearRange, yearFilterRange, se
                                 onChange={setYearFilterRange}
                             >
                             </DoubleSlider>
-                            <div class="year-range-display">{yearFilterRange[0]}  -  {yearFilterRange[1]}</div>
+                            <div className="year-range-display">{yearFilterRange[0]}  -  {yearFilterRange[1]}</div>
                         </div>
                         <div className="filter-label">Filter by company name:</div>
                         <div className="company-filter-util-btns">
