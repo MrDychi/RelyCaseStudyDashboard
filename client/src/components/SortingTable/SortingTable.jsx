@@ -38,11 +38,13 @@ const SortingTable = ({headers, rowData, yearFilterRange, companyFilter}) => {
                 <tbody>
                     {getSortedArray(rowData
                         .filter((row) => {
-                            let rowYear = Number(row[2].slice(0,4));
+                            let colIndex = headers.indexOf("Date");
+                            let rowYear = Number(row[colIndex].slice(0,4));
                             return rowYear >= yearFilterRange[0] && rowYear <= yearFilterRange[1];
                         })
                         .filter((row) => {
-                            let rowCompany = row[0];
+                            let colIndex = headers.indexOf("Company");
+                            let rowCompany = row[colIndex];
                             return companyFilter.includes(rowCompany);
                         })
                     ).map((row, rowIndex) => {

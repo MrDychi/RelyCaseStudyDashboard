@@ -16,37 +16,39 @@ const Dashboard = ({headers, rowData, yearFilterRange, companyFilter}) => {
     const calculateGlobalKPIStats = () => {
         let filteredData = 
             rowData.filter((row) => {
-                let rowYear = Number(row[2].slice(0,4));
+                let colIndex = headers.indexOf("Date");
+                let rowYear = Number(row[colIndex].slice(0,4));
                 return rowYear >= yearFilterRange[0] && rowYear <= yearFilterRange[1];
             })
             .filter((row) => {
-                let rowCompany = row[0];
+                let colIndex = headers.indexOf("Company");
+                let rowCompany = row[colIndex];
                 return companyFilter.includes(rowCompany);
             })
         return [
             {
-                "stat": new Set(filteredData.map((row) => {return row[1]})).size.toString(),
+                "stat": new Set(filteredData.map((row) => {return row[headers.indexOf("Location")]})).size.toString(),
                 "metric": "Different locations",
                 "icon": locationIcon
             },
             {
-                "stat": new Set(filteredData.map((row) => {return row[5]})).size.toString(),
+                "stat": new Set(filteredData.map((row) => {return row[headers.indexOf("Mission")]})).size.toString(),
                 "metric": "Total mission count",
                 "icon": missionIcon
             },
             {
-                "stat": filteredData.length === 0 ? "0%" : ((filteredData.filter((row) => {return row[8]==="Success";}).length) 
+                "stat": filteredData.length === 0 ? "0%" : ((filteredData.filter((row) => {return row[headers.indexOf("MissionStatus")]==="Success";}).length) 
                     / (filteredData.length) * 100).toFixed(0).toString() + "%",
                 "metric": "Successful missions",
                 "icon": successIcon
             },
             {
-                "stat": new Set(filteredData.map((row) => {return row[4]})).size.toString(),
+                "stat": new Set(filteredData.map((row) => {return row[headers.indexOf("Rocket")]})).size.toString(),
                 "metric": "Total Rockets",
                 "icon": rocketIcon
             },
             {
-                "stat": filteredData.length === 0 ? "0%" : ((filteredData.filter((row) => {return row[6]==="Retired";}).length)
+                "stat": filteredData.length === 0 ? "0%" : ((filteredData.filter((row) => {return row[headers.indexOf("RocketStatus")]==="Retired";}).length)
                     / (filteredData.length) * 100).toFixed(0).toString() + "%",
                 "metric": "Retired rockets",
                 "icon": retiredIcon
@@ -57,33 +59,35 @@ const Dashboard = ({headers, rowData, yearFilterRange, companyFilter}) => {
     const calculateCompanyKPIStats = () => {
         let filteredData = 
             rowData.filter((row) => {
-                let rowYear = Number(row[2].slice(0,4));
+                let colIndex = headers.indexOf("Date");
+                let rowYear = Number(row[colIndex].slice(0,4));
                 return rowYear >= yearFilterRange[0] && rowYear <= yearFilterRange[1];
             })
             .filter((row) => {
-                let rowCompany = row[0];
+                let colIndex = headers.indexOf("Company");
+                let rowCompany = row[colIndex];
                 return companyFilter.includes(rowCompany);
             }) 
         let len = yearFilterRange[1]-yearFilterRange[0]+1;
         let x_values = Array.from({ length: len}, (_, index) => yearFilterRange[0] + index);
         return companyFilter.map((company) => {
             let companyData = filteredData.filter((row) => {
-                return row[0] === company;
+                return row[headers.indexOf("Company")] === company;
             })
             return {
                 "company": company,
-                "missions": new Set(companyData.map((row) => {return row[5]})).size.toString(),
+                "missions": new Set(companyData.map((row) => {return row[headers.indexOf("Mission")]})).size.toString(),
                 "success": companyData.length === 0 
                     ? "0%"
-                    : (companyData.filter((row) => {return row[8] === "Success"}).length / companyData.length * 100).toFixed(0).toString() + "%",
-                "rockets": new Set(companyData.map((row) => {return row[4]})).size.toString(),
+                    : (companyData.filter((row) => {return row[headers.indexOf("MissionStatus")] === "Success"}).length / companyData.length * 100).toFixed(0).toString() + "%",
+                "rockets": new Set(companyData.map((row) => {return row[headers.indexOf("Rocket")]})).size.toString(),
                 "retired": companyData.length === 0
                     ? "0%"
-                    : (companyData.filter((row) => {return row[6] === "Retired"}).length / companyData.length * 100).toFixed(0).toString() + "%",
+                    : (companyData.filter((row) => {return row[headers.indexOf("RocketStatus")] === "Retired"}).length / companyData.length * 100).toFixed(0).toString() + "%",
                 "activity": {
                     "x_data": x_values,
                     "y_data": x_values.map((year) => {
-                        return companyData.filter((row) => {return Number(row[2].slice(0,4)) === year}).length
+                        return companyData.filter((row) => {return Number(row[headers.indexOf("Date")].slice(0,4)) === year}).length
                     })
                 }
             }
@@ -94,15 +98,18 @@ const Dashboard = ({headers, rowData, yearFilterRange, companyFilter}) => {
         const counts = {};
         let filteredData = 
             rowData.filter((row) => {
-                let rowYear = Number(row[2].slice(0,4));
+                let colIndex = headers.indexOf("Date");
+                let rowYear = Number(row[colIndex].slice(0,4));
                 return rowYear >= yearFilterRange[0] && rowYear <= yearFilterRange[1];
             })
             .filter((row) => {
-                let rowCompany = row[0];
+                let colIndex = headers.indexOf("Company");
+                let rowCompany = row[colIndex];
                 return companyFilter.includes(rowCompany);
             }) 
         filteredData.forEach((row) => {
-            counts[row[4]] = (counts[row[4]] || 0) + 1;
+            let colIndex = headers.indexOf("Rocket");
+            counts[row[colIndex]] = (counts[row[colIndex]] || 0) + 1;
         });
         return Object.entries(counts)
             .sort((a,b) => b[1] - a[1])
@@ -113,15 +120,18 @@ const Dashboard = ({headers, rowData, yearFilterRange, companyFilter}) => {
         const rocketCounts = {};
         let filteredData = 
             rowData.filter((row) => {
-                let rowYear = Number(row[2].slice(0,4));
+                let colIndex = headers.indexOf("Date");
+                let rowYear = Number(row[colIndex].slice(0,4));
                 return rowYear >= yearFilterRange[0] && rowYear <= yearFilterRange[1];
             })
             .filter((row) => {
-                let rowCompany = row[0];
+                let colIndex = headers.indexOf("Company");
+                let rowCompany = row[colIndex];
                 return companyFilter.includes(rowCompany);
             }) 
         filteredData.forEach((row) => {
-            rocketCounts[row[4]] = (rocketCounts[row[4]] || 0) + 1;
+            let colIndex = headers.indexOf("Rocket");
+            rocketCounts[row[colIndex]] = (rocketCounts[row[colIndex]] || 0) + 1;
         })
         const freqCounts = {};
         Object.values(rocketCounts).forEach(count => {
@@ -133,18 +143,20 @@ const Dashboard = ({headers, rowData, yearFilterRange, companyFilter}) => {
     const calculateSuccessRate = () => {
         let filteredData = 
             rowData.filter((row) => {
-                let rowYear = Number(row[2].slice(0,4));
+                let colIndex = headers.indexOf("Date");
+                let rowYear = Number(row[colIndex].slice(0,4));
                 return rowYear >= yearFilterRange[0] && rowYear <= yearFilterRange[1];
             })
             .filter((row) => {
-                let rowCompany = row[0];
+                let colIndex = headers.indexOf("Company");
+                let rowCompany = row[colIndex];
                 return companyFilter.includes(rowCompany);
             }) 
         let len = yearFilterRange[1]-yearFilterRange[0]+1;
         let x_values = Array.from({ length: len}, (_, index) => yearFilterRange[0] + index);
         let y_values = x_values.map(year => {
-            const attempts = filteredData.filter(row => Number(row[2].slice(0,4)) === year)
-            const success = attempts.filter(row => row[8] === "Success")
+            const attempts = filteredData.filter(row => Number(row[headers.indexOf("Date")].slice(0,4)) === year)
+            const success = attempts.filter(row => row[headers.indexOf("MissionStatus")] === "Success")
             return attempts.length === 0 ? 0 : success.length / attempts.length
         })
         return [x_values, y_values]
