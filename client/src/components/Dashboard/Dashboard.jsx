@@ -130,6 +130,26 @@ const Dashboard = ({headers, rowData, yearFilterRange, companyFilter}) => {
         return Object.entries(freqCounts);
     }
 
+    const calculateSuccessRate = () => {
+        let filteredData = 
+            rowData.filter((row) => {
+                let rowYear = Number(row[2].slice(0,4));
+                return rowYear >= yearFilterRange[0] && rowYear <= yearFilterRange[1];
+            })
+            .filter((row) => {
+                let rowCompany = row[0];
+                return companyFilter.includes(rowCompany);
+            }) 
+        let len = yearFilterRange[1]-yearFilterRange[0]+1;
+        let x_values = Array.from({ length: len}, (_, index) => yearFilterRange[0] + index);
+        let y_values = x_values.map(year => {
+            const attempts = filteredData.filter(row => Number(row[2].slice(0,4)) === year)
+            const success = attempts.filter(row => row[8] === "Success")
+            return attempts.length === 0 ? 0 : success.length / attempts.length
+        })
+        return [x_values, y_values]
+    }
+
     return (
         <>
             <div className="dashboard-view">
@@ -209,7 +229,20 @@ const Dashboard = ({headers, rowData, yearFilterRange, companyFilter}) => {
                             </div>
                             <div className="line chart-container">
                                 <div className="line graph-card">
-                                    {/*<Line></Line>*/}
+                                    <div className="line graph-card-label">Mission Success Rates</div>
+                                    <div className="line graph-card-graph">
+                                        <Line
+                                            data={{
+                                                labels: calculateSuccessRate()[0],
+                                                datasets: [
+                                                    {
+                                                        label: "Success rate",
+                                                        data: calculateSuccessRate()[1]
+                                                    }
+                                                ]
+                                            }}
+                                        ></Line>
+                                    </div>
                                 </div>
                             </div>
                         </div>

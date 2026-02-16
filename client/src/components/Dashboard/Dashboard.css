@@ -85,7 +85,7 @@ a.toggle-company-kpi:hover {
     color: blue;
     text-align: center;
 }
-.bar.graph-card-label {
+.bar.graph-card-label, .line.graph-card-label {
     height: 14%;
 }
 .graph-card-graph {
@@ -94,6 +94,9 @@ a.toggle-company-kpi:hover {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.bar.graph-card-graph, .line.graph-card-graph {
+    height: 86%;
 }
 
 .doughnut.chart-container {
