@@ -27,12 +27,12 @@ tr:nth-child(odd) {
     background-color: rgb(195, 195, 242);
 }
 tr:hover {
-    font-weight: bold;
+    background-color: yellow;
 }
 
 th {
     text-align: center;
-    background-color: rgb(26, 26, 87);
+    background-color: #1a1a57;
     
 }
 th:hover {
