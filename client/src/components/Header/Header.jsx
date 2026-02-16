@@ -1,5 +1,5 @@
-import relyLogo from '../../assets/rely.svg'
-import './Header.css'
+import relyLogo from '../../assets/rely.png';
+import './Header.css';
 
 const Header = () => {
     return (

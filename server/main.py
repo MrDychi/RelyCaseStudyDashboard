@@ -2,8 +2,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from data.data_loader import (
     getYearRangeData,
-    getUniqueValues,
-    getRows
+    getAllCompanyNames
 )
 
 app = FastAPI()
@@ -25,15 +24,6 @@ def getYearRange():
     values = getYearRangeData()
     return {"min": values[0], "max": values[1]}
 
-@app.get("/api/columnData")
-def getColumnData(request: Request):
-    print("Received request for column data")
-    queryParams = dict(request.query_params)
-    return getUniqueValues(column_title=queryParams.get("column"))
-
-@app.get("/api/summary")
-def getSummary():
-    print("Received request for summary")
-    return {
-        "totalRows": getRows()
-    }
+@app.get("/api/getAllCompanies")
+def getAllCompanies():
+    return getAllCompanyNames()

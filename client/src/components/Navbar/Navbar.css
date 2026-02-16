@@ -1,32 +1,28 @@
 .navbar {
-    background-color: #eeeeee;
+    max-height: 90vh;
+    background-color: #ddd;
     color: black;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     margin: 10px 0;
     transition: all 1s ease;
 }
-
 .navbar.collapsed {
     width: 5%;
     height: 5vw;
 }
-
 .navbar.expanded {
-    width: 20vw;
+    width: 25vw;
     height: auto;
 }
-
 .navbar.collapsed .navbar-content {
     transform: translateX(-20vw);
 }
-
 .navbar.expanded .navbar-content {
     display: flex;
     flex-direction: column;
     justify-items: center;
     align-items: center;
-    transform: translateX(0vw);
     transition: all 0.5s ease;
 }
 
@@ -37,7 +33,7 @@
 }
 
 .navbar-content {
-    height: 100%;
+    height: 85%;
     display: flex;
     flex-direction: column;
 }
@@ -48,23 +44,29 @@
     flex-direction: row;
     text-align: center;
     justify-content: space-between;
+    padding: 5px 0;
 }
-
 .navigation:hover {
     cursor: pointer;
+    font-weight: bold;
 }
-
+.navigation.selected {
+    font-weight: bold;
+    color: blue;
+    background-color:aliceblue;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
 .indicator {
     width: 10px;
-    height: auto;
-    border-radius: 5px;
+    height: 142%;
+    border-radius: 0 5px 5px 0;
     box-sizing: border-box;
+    transform: translateY(-14%);
 }
-
 .navigation .indicator.selected {
-    border: 5px solid red;
+    border: 6px solid #4b6fbc;
 }
-
 .nagivation .indicator.unselected {
     border: none;
 }
@@ -73,13 +75,50 @@
     width: 100%;
     height: 100%;
     flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .year-filter-container {
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.company-filter-container {
+    width: 100%;
+    max-height: 85%;
+    overflow-y: auto;
+    scrollbar-width: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-flow: row;
+    gap: 10px;
+    padding: 0 5px;
+    box-sizing: border-box;
+    flex: 1;
+}
+.company-filter-contain::-webkit-scrollbar {
+    display: none;
+}
+.company-filter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: blue;
+    cursor: pointer;
+    padding: 10px 0;
+    box-sizing: content-box;
+}
+.company-filter.unpicked {
+    background-color: #9c9c9c;
+}
+.company-filter.picked {
+    background-color: rgb(115, 115, 255);
+}
+.company-filter:hover {
+    font-weight: bold;
 }
 

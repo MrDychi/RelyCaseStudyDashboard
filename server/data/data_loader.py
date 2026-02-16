@@ -11,17 +11,6 @@ with open(CSV_PATH, mode='r') as file:
     DATA = pd.read_csv(CSV_PATH, sep=",")
 
 # FUNCTIONS
-# dummy function #TODO: delete later
-def getUniqueValues(column_title):
-    values = DATA[column_title].unique().tolist()
-    return {
-        "num": len(values),
-        "values": values
-    }
-# another dummy function #TODO: delete later
-def getRows():
-    return len(DATA)
-
 # Required Function 1: 
 def getMissionCountByCompany(companyName: str) -> int:
     """
@@ -152,6 +141,12 @@ def getYearRangeData():
     maxVal = sorted_data[-1][:4]
     print(f"returning: {minVal}, {maxVal}")
     return (minVal, maxVal)
+
+def getAllCompanyNames():
+    """
+    Get all company names
+    """
+    return DATA["Company"].unique().tolist()
 
 if __name__ == "__main__":
     # Testing functions here
